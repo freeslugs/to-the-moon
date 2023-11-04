@@ -20,7 +20,7 @@ const chains = [mainnet];
 const wagmiConfig = defaultWagmiConfig({
   chains,
   projectId,
-  appName: "GM Hackers",
+  appName: "do u like crypto",
 });
 
 createWeb3Modal({ wagmiConfig, projectId, chains });

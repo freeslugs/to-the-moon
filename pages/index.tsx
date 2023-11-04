@@ -118,7 +118,7 @@ const Home: NextPage = () => {
         icon: `${window.location.origin}/WalletConnect-blue.svg`,
         url: window.location.origin,
 	// ID retrieved from explorer api - Copy your notification type from WalletConnect Cloud and replace the default value below
-        type: "ba0e9ab1-e194-4780-8fc5-3c8abd9678e2",
+        type: "3c691d57-10a6-49fe-98f9-36f84e69b8ca",
       });
     }
   }, [handleSendNotification, isSubscribed]);
