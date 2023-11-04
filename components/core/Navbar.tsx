@@ -6,9 +6,10 @@ function Navbar() {
   return (
     <Flex alignItems="center" justifyContent={"space-between"} w="full">
       <Flex gap={4} alignItems="center">
-        <NavLink href="/">Home</NavLink>
+        <NavLink href="/">🏠</NavLink>
+        <NavLink href="/broadcast">🚀</NavLink>
       </Flex>
-      <w3m-button label="Connect Wallet" balance="show" />
+      <w3m-button label="Connect Wallet" balance="hide" />
     </Flex>
   );
 }

@@ -24,7 +24,7 @@ async function main() {
   //   )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
   // );
 
-  const app = await hre.ethers.deployContract("App", ['0x0Dcc19657007713483A5cA76e6A7bbe5f56EA37d']);
+  const app = await hre.ethers.deployContract("App", ['0x0Dcc19657007713483A5cA76e6A7bbe5f56EA37d', '0x90430C5b8045a1E2A0Fc4e959542a0c75b576439']);
 
   await app.waitForDeployment();
 
@@ -32,10 +32,10 @@ async function main() {
 
   console.log(`Verifying contract on Etherscan...`);
 
-  await run(`verify:verify`, {
-    address: app.address,
-    constructorArguments: ['0x0Dcc19657007713483A5cA76e6A7bbe5f56EA37d'],
-  });
+  // await run(`verify:verify`, {
+  //   address: app.address,
+  //   constructorArguments: ['0x0Dcc19657007713483A5cA76e6A7bbe5f56EA37d'],
+  // });
 
 
     // self kisser on zk evm testnet 

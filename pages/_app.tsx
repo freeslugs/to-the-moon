@@ -20,16 +20,19 @@ const chains = [mainnet];
 const wagmiConfig = defaultWagmiConfig({
   chains,
   projectId,
-  appName: "do u like crypto",
+  appName: "to the moon",
 });
 
 createWeb3Modal({ wagmiConfig, projectId, chains });
+
+// import Confetti from "../components/confetti";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <ChakraProvider theme={theme}>
         <WagmiConfig config={wagmiConfig}>
+          {/* <Confetti /> */}
           <Grid
             templateAreas={`"header" "main" "footer"`}
             w="100%"

@@ -145,8 +145,8 @@
       ]
     },
     "/Users/gilad/Documents/ethlisbon/gm-hackers/contracts/App.sol": {
-      "lastModificationDate": 1699116879835,
-      "contentHash": "3f9ef0ee228dda21f1a33c8c67956e38",
+      "lastModificationDate": 1699136960671,
+      "contentHash": "bb89c1c4e3f7b0ba33191ca52b2e693c",
       "sourceName": "contracts/App.sol",
       "solcConfig": {
         "version": "0.8.19",
@@ -173,7 +173,8 @@
       },
       "imports": [
         "./SelfKisser.sol",
-        "./IChronicle.sol"
+        "./IChronicle.sol",
+        "hardhat/console.sol"
       ],
       "versionPragmas": [
         "^0.8.9"
@@ -285,6 +286,109 @@
       ],
       "artifacts": [
         "Lock"
+      ]
+    },
+    "/Users/gilad/Documents/ethlisbon/gm-hackers/contracts/IChronicleMock.sol": {
+      "lastModificationDate": 1699123456292,
+      "contentHash": "5851e02477e870892f7803ddf593dc06",
+      "sourceName": "contracts/IChronicleMock.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [],
+      "artifacts": [
+        "IChronicleMock"
+      ]
+    },
+    "/Users/gilad/Documents/ethlisbon/gm-hackers/contracts/SelfKisserMock.sol": {
+      "lastModificationDate": 1699123350568,
+      "contentHash": "ec423a4c88f6bbd8e87b2c7b4928d896",
+      "sourceName": "contracts/SelfKisserMock.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.16"
+      ],
+      "artifacts": [
+        "SelfKisserMock"
+      ]
+    },
+    "/Users/gilad/Documents/ethlisbon/gm-hackers/node_modules/hardhat/console.sol": {
+      "lastModificationDate": 1699117001123,
+      "contentHash": "896f68942c3a20e9ae3c3c5bfd3add54",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
       ]
     }
   }

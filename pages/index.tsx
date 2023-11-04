@@ -114,114 +114,30 @@ const Home: NextPage = () => {
     if (isSubscribed) {
       handleSendNotification({
         title: "GM Hacker",
-        body: "Hack it until you make it!",
+        body: "yolo lfg!",
         icon: `${window.location.origin}/WalletConnect-blue.svg`,
-        url: window.location.origin,
-	// ID retrieved from explorer api - Copy your notification type from WalletConnect Cloud and replace the default value below
-        type: "3c691d57-10a6-49fe-98f9-36f84e69b8ca",
+        url: window.location.origin,        
+        type: process.env.NEXT_PUBLIC_NOTIFICATION_TYPE
       });
     }
   }, [handleSendNotification, isSubscribed]);
-
-  // Example of how to send a notification based on some "automation".
-  // sendNotification will make a fetch request to /api/notify
-  const handleBlockNotification = useCallback(async () => {
-    if (isSubscribed && account && isBlockNotificationEnabled) {
-      const blockNumber = await wagmiPublicClient.getBlockNumber();
-      if (lastBlock !== blockNumber.toString()) {
-        setLastBlock(blockNumber.toString());
-        try {
-          toast({
-            title: "New block",
-            position: "top",
-            variant: "subtle",
-          });
-          await sendNotification({
-            accounts: [account], // accounts that we want to send the notification to.
-            notification: {
-              title: "New block",
-              body: blockNumber.toString(),
-              icon: `${window.location.origin}/eth-glyph-colored.png`,
-              url: `https://etherscan.io/block/${blockNumber.toString()}`,
-              type: "transactional",
-            },
-          });
-        } catch (error: any) {
-          toast({
-            title: "Failed to send new block notification",
-            description: error.message ?? "Something went wrong",
-          });
-        }
-      }
-    }
-  }, [
-    wagmiPublicClient,
-    isSubscribed,
-    lastBlock,
-    account,
-    toast,
-    isBlockNotificationEnabled,
-  ]);
-
-  useInterval(() => {
-    handleBlockNotification();
-  }, 12000);
 
   return (
     <Flex w="full" flexDirection={"column"} maxW="700px">
       <Image
         aria-label="WalletConnect"
         src="2themoon.jpeg"
-        maxH="300px"
-        maxW="300px"
+        width={ isSubscribed ? "100px" : "300px" }
+        height={ isSubscribed ? "100px" : "300px" }
         alignSelf="center"
+        transition="width 0.3s, height 0.3s"
       />
       <Heading alignSelf={"center"} textAlign={"center"} mb={6}>
         To the Moon!
       </Heading>
 
       <Flex flexDirection="column" gap={4}>
-        {isSubscribed ? (
-          <Flex flexDirection={"column"} alignItems="center" gap={4}>
-            <Button
-              leftIcon={<BsSendFill />}
-              variant="outline"
-              onClick={handleTestNotification}
-              isDisabled={!isW3iInitialized}
-              colorScheme="purple"
-              rounded="full"
-              isLoading={isSending}
-              loadingText="Sending..."
-            >
-              Send test notification
-            </Button>
-            <Button
-              leftIcon={isBlockNotificationEnabled ? <FaPause /> : <FaPlay />}
-              variant="outline"
-              onClick={() =>
-                setIsBlockNotificationEnabled((isEnabled) => !isEnabled)
-              }
-              isDisabled={!isW3iInitialized}
-              colorScheme={isBlockNotificationEnabled ? "orange" : "blue"}
-              rounded="full"
-            >
-              {isBlockNotificationEnabled ? "Pause" : "Resume"} block
-              notifications
-            </Button>
-            <Button
-              leftIcon={<FaBellSlash />}
-              onClick={unsubscribe}
-              variant="outline"
-              isDisabled={!isW3iInitialized || !account}
-              colorScheme="red"
-              isLoading={isUnsubscribing}
-              loadingText="Unsubscribing..."
-              rounded="full"
-            >
-              Unsubscribe
-            </Button>
-          </Flex>
-        ) : (
+        {!isSubscribed && (
           <Tooltip
             label={
               !Boolean(address)
@@ -248,12 +164,7 @@ const Home: NextPage = () => {
         )}
 
         {isSubscribed && (
-          <Accordion defaultIndex={[1]} allowToggle mt={10} rounded="xl">
-            <Subscription />
-            <Messages />
-            <Preferences />
-            <Subscribers />
-          </Accordion>
+          <Messages />
         )}
       </Flex>
     </Flex>

@@ -7,7 +7,8 @@ export const theme = extendTheme({
       body: {
         fontFamily: "body",
         color: mode("gray.800", "whiteAlpha.900")(props),
-        bg: mode("#F5FAFA", "#141414")(props),
+        // bg: mode("#F5FAFA", "#141414")(props),
+        bg: mode("#e3c962", "#403931")(props),
         lineHeight: "base",
       },
     }),
