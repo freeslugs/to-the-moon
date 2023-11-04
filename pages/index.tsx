@@ -171,14 +171,13 @@ const Home: NextPage = () => {
     <Flex w="full" flexDirection={"column"} maxW="700px">
       <Image
         aria-label="WalletConnect"
-        src={
-          colorMode === "dark"
-            ? "/WalletConnect-white.svg"
-            : "/WalletConnect-black.svg"
-        }
+        src="2themoon.jpeg"
+        maxH="300px"
+        maxW="300px"
+        alignSelf="center"
       />
       <Heading alignSelf={"center"} textAlign={"center"} mb={6}>
-        Web3Inbox hooks
+        To the Moon!
       </Heading>
 
       <Flex flexDirection="column" gap={4}>
