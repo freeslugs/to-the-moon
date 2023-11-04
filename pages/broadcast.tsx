@@ -39,6 +39,9 @@ const BroadcastPage: NextPage = () => {
       <Alert status="success" mt={4}>
         <AlertIcon />
         <AlertTitle>We have {subscribers ? subscribers.length : '..'} subscribers!</AlertTitle>
+
+        
+
         <AlertDescription>
           Get ready to broadcast your message!
         </AlertDescription>

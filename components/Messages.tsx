@@ -27,7 +27,12 @@ function Messages() {
       <Heading fontSize="lg" as="h2">Messages</Heading>
       <Box overflowY="scroll" position={"relative"} maxH="400px">
         {!messages?.length ? (
-          <Text>No messages yet.</Text>
+          <Alert status="info" borderRadius="md">
+            <AlertIcon />
+            <AlertDescription>
+              📩 You don't have any messages yet, but don't worry! They'll be pouring in soon. Let's make it rain! 💸
+            </AlertDescription>
+          </Alert>
         ) : (
           messages
             .sort((a, b) => b.id - a.id)
@@ -40,6 +45,7 @@ function Messages() {
                 status="info"
                 colorScheme={message.type === "transactional" ? "blue" : "red"}
                 rounded="xl"
+                mb={4}
               >
                 {/* <AlertIcon /> */}
                 <Flex flexDir={"column"} flexGrow={1}>

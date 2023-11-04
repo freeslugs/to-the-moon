@@ -10,6 +10,10 @@ import {
   Tooltip,
   useColorMode,
   useToast,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
 import {
   useInitWeb3InboxClient,
@@ -149,9 +153,9 @@ const Home: NextPage = () => {
             <Button
               leftIcon={<FaBell />}
               onClick={handleSubscribe}
-              colorScheme="cyan"
+              colorScheme="green"
               rounded="full"
-              variant="outline"
+              // variant="outline"
               w="fit-content"
               alignSelf="center"
               isLoading={isSubscribing}
@@ -163,8 +167,45 @@ const Home: NextPage = () => {
           </Tooltip>
         )}
 
+        {  !isSubscribed && (
+          <Alert status="success" borderRadius="md">
+            <AlertIcon />
+            
+            <AlertDescription>
+              Get ready to make it rain! Each message received will earn you ONE DOLLAR OF ETH 🙌 
+            </AlertDescription>
+          </Alert>
+        )}
+
+        { account ? '' : (
+          <Alert status="info" borderRadius="md">
+            <AlertIcon />
+            
+            <AlertDescription>
+              FIRST CONNECT YOUR WALLET 
+            </AlertDescription>
+          </Alert>
+        )}
+
         {isSubscribed && (
+          <>
           <Messages />
+          
+          <Button
+              leftIcon={<FaBell />}
+              onClick={() => { unsubscribe() }}
+              colorScheme="red"
+              rounded="full"
+              // variant="outline"
+              w="fit-content"
+              alignSelf="center"
+              isLoading={isUnsubscribing}
+              loadingText="Copping out..."
+            >
+              Fumble the bag
+            </Button>
+          
+          </>
         )}
       </Flex>
     </Flex>

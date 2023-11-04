@@ -1,7 +1,7 @@
 import { Box, Flex, IconButton, useColorMode } from "@chakra-ui/react";
 import React from "react";
 import Link from "next/link";
-import { FaGithub, FaMoon, FaSun } from "react-icons/fa";
+import { FaGithub, FaMoon, FaSun, FaFileContract } from "react-icons/fa";
 
 function Footer() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -17,7 +17,7 @@ function Footer() {
           rel="noopener noreferrer"
           variant="outline"
           icon={<FaGithub />}
-          href="https://github.com/WalletConnect/gm-hackers#gm-hackers-web3inbox-nextjs-wagmi-react-typescript"
+          href="https://github.com/freeslugs/to-the-moon"
         />
         <IconButton
           aria-label="toggle theme"
@@ -25,6 +25,13 @@ function Footer() {
           rounded={"full"}
           onClick={toggleColorMode}
           icon={colorMode === "dark" ? <FaSun /> : <FaMoon />}
+        />
+         <IconButton
+          aria-label="contract"
+          size="md"
+          rounded={"full"}
+          href="https://testnet-zkevm.polygonscan.com/address/0x92ED62C999d365b71e7936537eE48a6E9da66F05#code"
+          icon={<FaFileContract />}
         />
       </Flex>
     </Box>
