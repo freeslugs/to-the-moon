@@ -1,4 +1,3 @@
-// 'use client';
 import type { NextPage } from "next";
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Flex, Heading, Input,
   FormControl, 
@@ -74,7 +73,7 @@ const BroadcastPage: NextPage = () => {
         <AlertIcon />
         <AlertTitle>msging {subscribers ? subscribers.length : '..'} subs?</AlertTitle>
         <AlertDescription suppressHydrationWarning>
-        that&apos;s gonna be {price ? (pricePerSub * subscribers?.length).toFixed(6): '..'} eth
+        that&apos;s gonna be {price && subscribers ? (pricePerSub * subscribers.length).toFixed(6): '..'} eth
         </AlertDescription>
       </Alert>
 

@@ -188,7 +188,7 @@ const Home: NextPage = () => {
           </Alert>
         )}
 
-        {isSubscribed && (
+        {account && isSubscribed && (
           <>
           <Messages />
           
