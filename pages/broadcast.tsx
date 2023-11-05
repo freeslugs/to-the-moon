@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Flex, Heading, Input,
   FormControl, 
+  useToast,
   FormLabel, 
   useColorModeValue,
   Button 
@@ -21,6 +22,7 @@ const AppABI = AppContract.abi
 const BroadcastPage = () => {
   const [subscribers, setSubscribers] = useState<string[]>();
   const [message, setMessage] = useState<string>("");
+  const toast = useToast();
   // const { handleSendNotification, isSending } = useSendNotification();
   const { address } = useAccount()
 
@@ -57,6 +59,34 @@ const BroadcastPage = () => {
     chainId: 1442,
     abi: AppABI,
     functionName: 'broadcast',
+    onSuccess: (data) => {
+      console.log('ok complete! ')
+      console.log(data)
+      
+      toast({
+        title: "ok done thanks for paying",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+        render: () => {
+          return <Link href={`https://testnet-zkevm.polygonscan.com/tx/${data.hash}`} target="_blank" rel="noopener noreferrer">
+            View Transaction
+          </Link>
+        },
+      });
+
+      sendNotification({
+        accounts: subscribers || [],
+        notification: {
+          title: address || "from some anon",
+          body: message,
+          icon: `${window.location.origin}/2themoon.jpeg`,
+          url: `https://testnet-zkevm.polygonscan.com/address/${address}`,
+          type: process.env.NEXT_PUBLIC_NOTIFICATION_TYPE || ""
+        }
+      });
+
+    }
   })
   
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -65,26 +95,10 @@ const BroadcastPage = () => {
     const addresses = subscribers?.map(address => address.split(':')[2]);
     const val = subscribers ? (pricePerSub * subscribers.length * 1.02).toString() : "0"
     
-    await write({
+    write({
       args: [addresses],
       value: parseEther(val),
     })
-
-    console.log(`isSuccess:${isSuccess}`)
-
-
-    sendNotification({
-      accounts: subscribers || [],
-      notification: {
-        title: address || "from some anon",
-        body: message,
-        icon: `${window.location.origin}/2themoon.jpeg`,
-        url: `https://testnet-zkevm.polygonscan.com/address/${address}`,
-        type: process.env.NEXT_PUBLIC_NOTIFICATION_TYPE || ""
-      }
-    });
-
-    console.log(message);
   };
 
 
@@ -129,4 +143,3 @@ const BroadcastPage = () => {
 }
 
 export default BroadcastPage;
-
