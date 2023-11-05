@@ -1,4 +1,7 @@
 {
   "extends": "next/core-web-vitals",
-  "react/jsx-uses-react": 0
+  "rules": {
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off"
+  }
 }

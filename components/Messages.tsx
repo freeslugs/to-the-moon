@@ -30,7 +30,7 @@ function Messages() {
           <Alert status="info" borderRadius="md">
             <AlertIcon />
             <AlertDescription>
-              📩 You don't have any messages yet, but don't worry! They'll be pouring in soon. Let's make it rain! 💸
+              📩 You don&apos;t have any messages yet, but don&apos;t worry! They&apos;ll be pouring in soon. Let&apos;s make it rain! 💸
             </AlertDescription>
           </Alert>
         ) : (

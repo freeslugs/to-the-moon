@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import { ChakraProvider, Box, Flex, Grid, GridItem } from "@chakra-ui/react";
 import { WagmiConfig } from "wagmi";
-import { mainnet } from "wagmi/chains";
+import { polygonZkEvmTestnet } from "wagmi/chains";
 import { theme } from "../styles/theme";
 import Footer from "../components/core/Footer";
 import "@web3inbox/widget-react/dist/compiled.css";
@@ -16,7 +16,7 @@ if (!projectId) {
 }
 
 // 2. Configure Web3Modal
-const chains = [mainnet];
+const chains = [polygonZkEvmTestnet];
 const wagmiConfig = defaultWagmiConfig({
   chains,
   projectId,
@@ -32,7 +32,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <ChakraProvider theme={theme}>
         <WagmiConfig config={wagmiConfig}>
-          {/* <Confetti /> */}
           <Grid
             templateAreas={`"header" "main" "footer"`}
             w="100%"
@@ -54,7 +53,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               </Flex>
             </GridItem>
             <GridItem area={"footer"}>
-              <Footer />
+              {/* <Footer /> */}
             </GridItem>
           </Grid>
         </WagmiConfig>
