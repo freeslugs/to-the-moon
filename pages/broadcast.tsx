@@ -11,12 +11,14 @@ import { useContractRead } from 'wagmi'
 // import useSendNotification from "../utils/useSendNotification";
 import { sendNotification } from "../utils/fetchNotify";
 import { useAccount, usePublicClient, useSignMessage } from "wagmi";
+import { useContractWrite, usePrepareContractWrite } from 'wagmi'
 
 import AppContract from '../artifacts/contracts/App.sol/App.json'
 import Link from "next/link";
+import { parseEther } from "viem/utils";
 const AppABI = AppContract.abi
 
-const BroadcastPage: NextPage = () => {
+const BroadcastPage = () => {
   const [subscribers, setSubscribers] = useState<string[]>();
   const [message, setMessage] = useState<string>("");
   // const { handleSendNotification, isSending } = useSendNotification();
@@ -35,23 +37,6 @@ const BroadcastPage: NextPage = () => {
     getSubscribers();
   }, [getSubscribers]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    
-    sendNotification({
-      accounts: subscribers || [],
-      notification: {
-        title: address || "from some anon",
-        body: message,
-        icon: `${window.location.origin}/2themoon.jpeg`,
-        url: `https://testnet-zkevm.polygonscan.com/address/${address}`,
-        type: process.env.NEXT_PUBLIC_NOTIFICATION_TYPE || ""
-      }
-    });
-
-    console.log(message);
-  };
-
   const { data: ethOracle, isError: ethOracleError, isLoading: ethOracleLoading } = useContractRead({
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
     chainId: 1442,
@@ -67,12 +52,48 @@ const BroadcastPage: NextPage = () => {
     args: [ethOracle]
   })
 
+  const { data, isLoading, isSuccess, write, error } =  useContractWrite({
+    address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
+    chainId: 1442,
+    abi: AppABI,
+    functionName: 'broadcast',
+  })
+  
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    const addresses = subscribers?.map(address => address.split(':')[2]);
+    const val = subscribers ? (pricePerSub * subscribers.length * 1.02).toString() : "0"
+    
+    await write({
+      args: [addresses],
+      value: parseEther(val),
+    })
+
+    console.log(`isSuccess:${isSuccess}`)
+
+
+    sendNotification({
+      accounts: subscribers || [],
+      notification: {
+        title: address || "from some anon",
+        body: message,
+        icon: `${window.location.origin}/2themoon.jpeg`,
+        url: `https://testnet-zkevm.polygonscan.com/address/${address}`,
+        type: process.env.NEXT_PUBLIC_NOTIFICATION_TYPE || ""
+      }
+    });
+
+    console.log(message);
+  };
+
+
   const pricePerSub = (10 ** 18) / Number(price) 
 
   return (
     <div>
       <Flex justifyContent="center">
-        <Heading as="h2">Broadcast</Heading>
+        <Heading as="h2">msg to all degens</Heading>
       </Flex>
 
       <Link href={`https://testnet-zkevm.polygonscan.com/address/${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}#code`}  target='_blank' rel='noopener noreferrer'>
@@ -99,7 +120,7 @@ const BroadcastPage: NextPage = () => {
       <FormControl bg={useColorModeValue("gray.200", "gray.700")} p={4} borderRadius="lg" style={{ marginTop: "2rem" }}>
         <FormLabel htmlFor="message">What&apos;s on your mind?</FormLabel>
         <form onSubmit={handleSubmit}>
-          <Input id="message" type="text" bg="white" style={{ marginTop: "1rem" }} onChange={(e) => setMessage(e.target.value)} />
+          <Input id="message" type="text" bg="white" style={{ marginTop: "1rem" }} onChange={(e) => setMessage(e.target.value)} placeholder="wagmii" />
           <Button type="submit" colorScheme="teal" leftIcon={<span role="img" aria-label="send">✉️</span>} bg="teal.500" color="white" style={{ marginTop: "1rem" }}>Send</Button>
         </form>
       </FormControl>
