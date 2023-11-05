@@ -64,14 +64,24 @@ const BroadcastPage = () => {
       console.log(data)
       
       toast({
+        position: "top",
+        variant: "subtle",
         title: "ok done thanks for paying",
         status: "success",
         duration: 3000,
         isClosable: true,
         render: () => {
-          return <Link href={`https://testnet-zkevm.polygonscan.com/tx/${data.hash}`} target="_blank" rel="noopener noreferrer">
-            View Transaction
-          </Link>
+          return (
+            <Link href={`https://testnet-zkevm.polygonscan.com/tx/${data.hash}`} target="_blank" rel="noopener noreferrer">
+              <Alert status="success" mt={4}>
+                <AlertIcon />
+                <AlertTitle>Transaction Successful</AlertTitle>
+                <AlertDescription>
+                  Click here to view the transaction.
+                </AlertDescription>
+              </Alert>
+            </Link>
+          );
         },
       });
 
