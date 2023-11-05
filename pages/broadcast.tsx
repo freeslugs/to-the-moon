@@ -2,13 +2,15 @@ import type { NextPage } from "next";
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Flex, Heading, Input,
   FormControl, 
   FormLabel, 
-  
+  useColorModeValue,
   Button 
  } from "@chakra-ui/react";
 import { useCallback, useEffect, useState } from "react";
 import { getAllSubscribers } from "../utils/fetchNotify";
 import { useContractRead } from 'wagmi'
-import useSendNotification from "../utils/useSendNotification";
+// import useSendNotification from "../utils/useSendNotification";
+import { sendNotification } from "../utils/fetchNotify";
+import { useAccount, usePublicClient, useSignMessage } from "wagmi";
 
 import AppContract from '../artifacts/contracts/App.sol/App.json'
 import Link from "next/link";
@@ -17,7 +19,8 @@ const AppABI = AppContract.abi
 const BroadcastPage: NextPage = () => {
   const [subscribers, setSubscribers] = useState<string[]>();
   const [message, setMessage] = useState<string>("");
-  const { handleSendNotification, isSending } = useSendNotification();
+  // const { handleSendNotification, isSending } = useSendNotification();
+  const { address } = useAccount()
 
   const getSubscribers = useCallback(async () => {
     try {
@@ -35,12 +38,15 @@ const BroadcastPage: NextPage = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    handleSendNotification({
-      title: "from me ",
-      body: message,
-      icon: `${window.location.origin}/2themoon.jpeg`,
-      url: window.location.origin,        
-      type: process.env.NEXT_PUBLIC_NOTIFICATION_TYPE || ""
+    sendNotification({
+      accounts: subscribers || [],
+      notification: {
+        title: address || "from some anon",
+        body: message,
+        icon: `${window.location.origin}/2themoon.jpeg`,
+        url: `https://testnet-zkevm.polygonscan.com/address/${address}`,
+        type: process.env.NEXT_PUBLIC_NOTIFICATION_TYPE || ""
+      }
     });
 
     console.log(message);
@@ -90,7 +96,7 @@ const BroadcastPage: NextPage = () => {
 
 
       <div style={{ marginTop: "2rem" }}></div>
-      <FormControl bg="gray.200" p={4} borderRadius="lg" style={{ marginTop: "2rem" }}>
+      <FormControl bg={useColorModeValue("gray.200", "gray.700")} p={4} borderRadius="lg" style={{ marginTop: "2rem" }}>
         <FormLabel htmlFor="message">What&apos;s on your mind?</FormLabel>
         <form onSubmit={handleSubmit}>
           <Input id="message" type="text" bg="white" style={{ marginTop: "1rem" }} onChange={(e) => setMessage(e.target.value)} />
