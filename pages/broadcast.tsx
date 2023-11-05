@@ -37,14 +37,14 @@ const BroadcastPage: NextPage = () => {
   };
 
   const { data: ethOracle, isError: ethOracleError, isLoading: ethOracleLoading } = useContractRead({
-    address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+    address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
     chainId: 1442,
     abi: AppABI,
     functionName: 'ethOracle',
   })
 
   const { data: price, isError: priceError, isLoading: priceLoading } = useContractRead({
-    address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+    address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
     chainId: 1442,
     abi: AppABI,
     functionName: 'getOracleValue',

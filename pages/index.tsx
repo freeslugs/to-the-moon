@@ -121,7 +121,9 @@ const Home: NextPage = () => {
         body: "yolo lfg!",
         icon: `${window.location.origin}/WalletConnect-blue.svg`,
         url: window.location.origin,        
-        type: process.env.NEXT_PUBLIC_NOTIFICATION_TYPE
+        type: process.env.NEXT_PUBLIC_NOTIFICATION_TYPE || ""
+      });
+    }
       });
     }
   }, [handleSendNotification, isSubscribed]);
