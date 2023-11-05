@@ -5,11 +5,9 @@ import { FaGithub, FaMoon, FaSun, FaFileContract } from "react-icons/fa";
 
 function Footer() {
   const { colorMode, toggleColorMode } = useColorMode();
-   
   return (
     <Box justifyContent="flex-end" position="fixed" right="36px" bottom="36px">
       <Flex alignItems="center" gap={2}>
-        
         <IconButton
           aria-label="Github repo"
           size="md"
@@ -28,7 +26,7 @@ function Footer() {
           onClick={toggleColorMode}
           icon={colorMode === "dark" ? <FaSun /> : <FaMoon />}
         />
-        <IconButton
+         <IconButton
           aria-label="contract"
           size="md"
           as={Link}

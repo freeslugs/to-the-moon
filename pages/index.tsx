@@ -1,4 +1,3 @@
-"use client";
 import type { NextPage } from "next";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -114,19 +113,19 @@ const Home: NextPage = () => {
 
   // handleSendNotification will send a notification to the current user and includes error handling.
   // If you don't want to use this hook and want more flexibility, you can use sendNotification.
-  const handleTestNotification = useCallback(async () => {
-    if (isSubscribed) {
-      handleSendNotification({
-        title: "GM Hacker",
-        body: "yolo lfg!",
-        icon: `${window.location.origin}/WalletConnect-blue.svg`,
-        url: window.location.origin,        
-        type: process.env.NEXT_PUBLIC_NOTIFICATION_TYPE || ""
-      });
-    }
-      });
-    }
-  }, [handleSendNotification, isSubscribed]);
+  // const handleTestNotification = useCallback(async () => {
+  //   if (isSubscribed) {
+  //     handleSendNotification({
+  //       title: "GM Hacker",
+  //       body: "yolo lfg!",
+  //       icon: `${window.location.origin}/WalletConnect-blue.svg`,
+  //       url: window.location.origin,        
+  //       type: process.env.NEXT_PUBLIC_NOTIFICATION_TYPE || ""
+  //     });
+  //   }
+  //     });
+  //   }
+  // }, [handleSendNotification, isSubscribed]);
 
   return (
     <Flex w="full" flexDirection={"column"} maxW="700px">
