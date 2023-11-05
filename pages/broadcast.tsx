@@ -8,6 +8,7 @@ import { Alert, AlertDescription, AlertIcon, AlertTitle, Flex, Heading, Input,
 import { useCallback, useEffect, useState } from "react";
 import { getAllSubscribers } from "../utils/fetchNotify";
 import { useContractRead } from 'wagmi'
+import useSendNotification from "../utils/useSendNotification";
 
 import AppContract from '../artifacts/contracts/App.sol/App.json'
 import Link from "next/link";
@@ -16,6 +17,7 @@ const AppABI = AppContract.abi
 const BroadcastPage: NextPage = () => {
   const [subscribers, setSubscribers] = useState<string[]>();
   const [message, setMessage] = useState<string>("");
+  const { handleSendNotification, isSending } = useSendNotification();
 
   const getSubscribers = useCallback(async () => {
     try {
@@ -32,6 +34,15 @@ const BroadcastPage: NextPage = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    handleSendNotification({
+      title: "from me ",
+      body: message,
+      icon: `${window.location.origin}/2themoon.jpeg`,
+      url: window.location.origin,        
+      type: process.env.NEXT_PUBLIC_NOTIFICATION_TYPE || ""
+    });
+
     console.log(message);
   };
 
